@@ -1,0 +1,7 @@
+pytest
+pytest-html
+pytest-xdist
+pytest-playwright
+pytest-bdd
+playwright
+

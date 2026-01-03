@@ -4,12 +4,6 @@ from pageObject.loginPage import loginPage
 from utils.API_utils import API_Utils
 
 
-def test_api1(playwright:Playwright):
-    request = playwright.request.new_context(base_url="https://rahulshettyacademy.com")
-    response = request.post(url='/api/ecom/auth/login',
-                 headers={'Content-Type':'application/json'},
-                 data={"userEmail": "prakhar.sh95@gmail.com", "userPassword": "Password@123"})
-    response_json = response.json()
 
 def test_view_order(playwright:Playwright):
     api_utils = API_Utils(playwright)

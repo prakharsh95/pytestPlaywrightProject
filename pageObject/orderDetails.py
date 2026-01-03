@@ -1,6 +1,6 @@
 from playwright.sync_api import Page, expect
 
-from logoutPage import logoutPage
+from .logoutPage import logoutPage
 
 
 class orderDetails:

@@ -1,4 +1,4 @@
-from orderDetails import orderDetails
+from .orderDetails import orderDetails
 
 
 class ordersPage:

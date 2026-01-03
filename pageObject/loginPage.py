@@ -1,4 +1,4 @@
-from dashboard import dashboard
+from .dashboard import dashboard
 
 
 class loginPage:

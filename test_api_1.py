@@ -1,5 +1,6 @@
 from playwright.sync_api import Playwright
 
+from pageObject.loginPage import loginPage
 from utils.API_utils import API_Utils
 
 
@@ -17,12 +18,14 @@ def test_view_order(playwright:Playwright):
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://rahulshettyacademy.com/client")
-    page.get_by_role("textbox", name="email@example.com").fill("prakhar.sh95@gmail.com")
-    page.get_by_role("textbox", name="enter your passsword").fill("Password@123")
-    page.get_by_role("button", name="Login").click()
-    page.get_by_role("button", name="ORDERS").click()
-    page.get_by_role("button", name="View").first.click()
-    page.get_by_role("button", name="Sign Out").click()
+    login_page = loginPage(page)
+    dashboard = login_page.login("prakhar.sh95@gmail.com","Password@123")
+    orders_page = dashboard.go_to_orders()
+    order_details_page = orders_page.view_order(order_id)
+    logout = order_details_page.view_order_details(order_id)
+    logout.logout()
+
+
 
     context.close()
     browser.close()

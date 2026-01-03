@@ -1,4 +1,4 @@
-from ordersPage import ordersPage
+from .ordersPage import ordersPage
 
 
 class dashboard:

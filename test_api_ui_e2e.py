@@ -1,11 +1,21 @@
+import json
+from pathlib import Path
 from playwright.sync_api import Playwright
 
 from pageObject.loginPage import loginPage
 from utils.API_utils import API_Utils
 
+project_root = Path(__file__).parent
+credentials_path = project_root / "data" / "credentials.json"
+
+# Read userCredentials from credentials.json
+with open(credentials_path, 'r') as f:
+    credentials_data = json.load(f)
+    user_credentials = credentials_data.get("userCredentials", [])
 
 
 def test_view_order(playwright:Playwright):
+
     api_utils = API_Utils(playwright)
     order_id = api_utils.create_order()
     browser = playwright.chromium.launch(headless=False)

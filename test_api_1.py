@@ -22,6 +22,8 @@ def test_view_order(playwright:Playwright):
     dashboard = login_page.login("prakhar.sh95@gmail.com","Password@123")
     orders_page = dashboard.go_to_orders()
     order_details_page = orders_page.view_order(order_id)
+
+    api_utils.delete_order(order_id)
     logout = order_details_page.view_order_details(order_id)
     logout.logout()
 

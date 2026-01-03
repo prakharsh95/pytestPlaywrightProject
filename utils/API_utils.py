@@ -19,6 +19,10 @@ class API_Utils():
         return self.token, self.user_id
 
     def create_order(self):
+        # Automatically login if token is not set
+        if self.token is None:
+            self.login()
+        
         headers = {'Content-Type': 'application/json',
                    'Authorization': self.token}
         payload = {"orders":[{"country":"India",
@@ -32,6 +36,10 @@ class API_Utils():
         return response_json['orders'][0]
 
     def delete_order(self, order_id):
+        # Automatically login if token is not set
+        if self.token is None:
+            self.login()
+        
         headers = {'Content-Type': 'application/json',
                    'Authorization': self.token}
         response = self.context.delete(url=f'/api/ecom/order/delete-order/{order_id}',

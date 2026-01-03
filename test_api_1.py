@@ -1,5 +1,7 @@
 from playwright.sync_api import Playwright
 
+from utils.API_utils import API_Utils
+
 
 def test_api1(playwright:Playwright):
     request = playwright.request.new_context(base_url="https://rahulshettyacademy.com")
@@ -9,6 +11,8 @@ def test_api1(playwright:Playwright):
     response_json = response.json()
 
 def test_view_order(playwright:Playwright):
+    api_utils = API_Utils(playwright)
+    order_id = api_utils.create_order()
     browser = playwright.chromium.launch(headless=False)
     context = browser.new_context()
     page = context.new_page()

@@ -19,11 +19,13 @@ def user_credentials(request):
     return request.param
 
 
+
+
 @pytest.fixture(scope="function")
 def setup_browser(playwright: Playwright, request):
     """Fixture to set up browser, context, and page based on command-line browser selection."""
     browser_name = request.config.getoption("--browserName")
-    
+
     # Launch the appropriate browser
     if browser_name == "chrome":
         browser = playwright.chromium.launch(headless=True)
@@ -35,9 +37,11 @@ def setup_browser(playwright: Playwright, request):
     context = browser.new_context()
     page = context.new_page()
     
-    # Yield page, context, and browser for use in tests
-    yield page
+    # Start tracing if enabled
+    context.tracing.start(screenshots=True, snapshots=True, sources=True)
 
+    # Yield page for use in tests
+    yield page
 
     # Stop tracing and save to test-results folder
     # Create test-results directory if it doesn't exist
@@ -53,8 +57,6 @@ def setup_browser(playwright: Playwright, request):
     except Exception as e:
         print(f"Warning: Failed to save trace: {e}")
 
-    
-    # Cleanup (teardown)
     context.close()
     browser.close()
 

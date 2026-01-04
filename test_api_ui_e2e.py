@@ -18,15 +18,15 @@ with open(credentials_path, 'r') as f:
 
 
 @pytest.mark.parametrize('user_credentials',user_credentials)
-def test_view_order(playwright:Playwright,user_credentials, indirect=True):
+def test_view_order(playwright:Playwright, user_credentials, setup_browser, indirect=True):
     user_name = user_credentials['userEmail']
     password = user_credentials['userPassword']
 
     api_utils = API_Utils(playwright)
     order_id = api_utils.create_order(user_name, password)
-    browser = playwright.chromium.launch(headless=False)
-    context = browser.new_context()
-    page = context.new_page()
+    
+    # Use the fixture to get page, context, and browser
+    page = setup_browser
     page.goto("https://rahulshettyacademy.com/client")
     login_page = loginPage(page)
     dashboard = login_page.login(user_name, password)
@@ -36,9 +36,4 @@ def test_view_order(playwright:Playwright,user_credentials, indirect=True):
     logout = order_details_page.view_order_details(order_id)
     api_utils.delete_order(order_id, user_name, password)
     logout.logout()
-
-
-
-    context.close()
-    browser.close()
 

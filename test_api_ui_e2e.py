@@ -23,7 +23,7 @@ def test_view_order(playwright:Playwright,user_credentials, indirect=True):
     password = user_credentials['userPassword']
 
     api_utils = API_Utils(playwright)
-    order_id = api_utils.create_order()
+    order_id = api_utils.create_order(user_name, password)
     browser = playwright.chromium.launch(headless=False)
     context = browser.new_context()
     page = context.new_page()
@@ -34,7 +34,7 @@ def test_view_order(playwright:Playwright,user_credentials, indirect=True):
     order_details_page = orders_page.view_order(order_id)
 
     logout = order_details_page.view_order_details(order_id)
-    api_utils.delete_order(order_id)
+    api_utils.delete_order(order_id, user_name, password)
     logout.logout()
 
 

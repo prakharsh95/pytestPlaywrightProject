@@ -28,7 +28,7 @@ class API_Utils():
         headers = {'Content-Type': 'application/json',
                    'Authorization': self.token}
         payload = {"orders":[{"country":"India",
-                              "productOrderedId":"68a961459320a140fe1ca57a"}]}
+                              "productOrderedId":"6960eac0c941646b7a8b3e68"}]}
 
         response = self.context.post(url='/api/ecom/order/create-order',
                                      data=payload,
